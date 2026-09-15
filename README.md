@@ -49,7 +49,7 @@ Monte Carlo pricing is compared against the Black-Scholes analytical benchmark.
 
 ### Binomial Tree
 
-A Cox-Ross-Rubinstein style binomial model is implemented by dividing the option's life into discrete time steps and recursively discounting expected option values.
+A Cox-Ross-Rubinstein-style binomial model is implemented by dividing the option's life into discrete time steps and recursively discounting expected option values.
 
 ## Convergence Analysis
 
@@ -57,21 +57,21 @@ A Cox-Ross-Rubinstein style binomial model is implemented by dividing the option
 
 ![Monte Carlo Convergence](figures/monte_carlo_convergence.png)
 
+Monte Carlo simulations were evaluated across increasing simulation counts.
+
+Repeated trials were used to estimate average absolute pricing error relative to the Black-Scholes benchmark.
+
 ### Binomial Convergence
 
 ![Binomial Convergence](figures/binomial_convergence.png)
+
+The binomial model was evaluated across increasing numbers of tree steps to measure how numerical accuracy changes as the tree becomes finer.
 
 ### Model Convergence Comparison
 
 ![Model Comparison](figures/model_convergence_comparison.png)
 
-Monte Carlo simulations were tested at increasing simulation counts.
-
-Repeated trials were used to estimate average pricing error relative to Black-Scholes.
-
-The binomial model was also tested across increasing numbers of tree steps.
-
-The results demonstrate convergence toward the analytical Black-Scholes price as numerical resolution increases.
+The results demonstrate that both numerical methods converge toward the analytical Black-Scholes price as computational resolution increases.
 
 ## Runtime Analysis
 
@@ -83,14 +83,6 @@ This provides a practical comparison of pricing accuracy and computational cost.
 
 ## Option Greeks
 
-### Delta Sensitivity
-
-![Call Delta](figures/call_delta_vs_stock.png)
-
-### Gamma Sensitivity
-
-![Gamma](figures/gamma_vs_stock.png)
-
 The following Greeks were calculated:
 
 - Delta
@@ -98,6 +90,14 @@ The following Greeks were calculated:
 - Vega
 - Theta
 - Rho
+
+### Delta Sensitivity
+
+![Call Delta](figures/call_delta_vs_stock.png)
+
+### Gamma Sensitivity
+
+![Gamma](figures/gamma_vs_stock.png)
 
 Sensitivity analysis was also performed with respect to stock price, volatility, and time to expiration.
 
@@ -133,6 +133,17 @@ To reduce distortions associated with deep in-the-money contracts, the volatilit
 - Out-of-the-money calls above the SPY spot price
 
 The resulting volatility skew demonstrates substantially higher implied volatility for downside strikes.
+
+## Key Findings
+
+- Monte Carlo pricing converged toward the analytical Black-Scholes benchmark as the number of simulations increased.
+- Repeated Monte Carlo trials reduced the influence of random sampling variation and produced a clearer convergence pattern.
+- The binomial tree model converged toward the Black-Scholes price as the number of tree steps increased.
+- Delta increased as the call option moved further in-the-money, while Gamma was highest near the at-the-money region.
+- Option values increased with volatility and time to expiration.
+- A custom binary-search solver successfully estimated implied volatility from observed option prices.
+- Real SPY option-chain data exhibited a pronounced downside volatility skew.
+- Using OTM puts below spot and OTM calls above spot reduced distortions associated with deep in-the-money option quotes.
 
 ## Technologies
 
